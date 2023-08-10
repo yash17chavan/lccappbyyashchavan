@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title> Live CC App by Yash </title>
+	<style>
+		* {font-size : 130% ; }
+		h1 { background-color:black ; color:white ;
+			width:50% ; border-radius:30px ; }
+		body { background-color:lightblue ; }
+
+	</style>
+	<script>
+	function convert()
+	{
+		event.preventDefault() ;
+		let amt = document.getElementById("amt") ;
+		let ans = document.getElementById("ans") ;
+		let url = "https://api.exchangerate-api.com/v4/latest/USD" ;
+		fetch(url)
+		.then(res => res.json())
+		.then(data =>{
+			let dollar = data["rates"]["INR"]
+			n = parseFloat(amt.value)
+			res = n * dollar ;
+			ans.innerHTML = "INR = " + res;
+
+
+		})	
+		.catch(err => ans.innerHTML = "issue" + err) ;
+
+	}
+
+	</script>
+</head>
+<body>
+<center>
+	<h1> Live CC App </h1>
+	<form onsubmit = "convert()">
+		<input type="number" step = "any" placeholder="enter amt in $$" id ="amt" />
+		<br/><br/>
+		<input type="submit" />
+	</form>
+	<h1 id = "ans"> </h1>
+
+
+
+
+</center>
+</body>
+</html>
